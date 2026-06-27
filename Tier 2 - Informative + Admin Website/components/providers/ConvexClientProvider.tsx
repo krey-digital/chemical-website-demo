@@ -6,11 +6,11 @@ import { ReactNode } from "react";
 
 const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
 
-if (!convexUrl) {
-  throw new Error("NEXT_PUBLIC_CONVEX_URL environment variable is not set");
+if (!convexUrl && typeof window !== "undefined") {
+  console.error("NEXT_PUBLIC_CONVEX_URL environment variable is not set");
 }
 
-const convex = new ConvexReactClient(convexUrl);
+const convex = new ConvexReactClient(convexUrl ?? "https://placeholder.convex.cloud");
 
 export default function ConvexClientProvider({
   children,
